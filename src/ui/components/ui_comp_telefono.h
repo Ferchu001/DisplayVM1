@@ -3,12 +3,19 @@
 // LVGL version: 8.3.6
 // Project name: SquareLine_Project
 
-#ifndef _UI_EVENTS_H
-#define _UI_EVENTS_H
+#ifndef _UI_COMP_TELEFONO_H
+#define _UI_COMP_TELEFONO_H
+
+#include "../ui.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+// COMPONENT Telefono
+#define UI_COMP_TELEFONO_TELEFONO 0
+#define _UI_COMP_TELEFONO_NUM 1
+lv_obj_t * ui_Telefono_create(lv_obj_t * comp_parent);
 
 #ifdef __cplusplus
 } /*extern "C"*/
