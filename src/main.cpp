@@ -3,16 +3,16 @@
 #include <esp32_smartdisplay.h>
 #include <ui/ui.h>
 #include <Audio.h>
-//#include "lv_examples.h"
+// #include "lv_examples.h"
 
 #define WIFI_SSID "InsotechPB"
 #define WIFI_PASSWORD "Hola1234"
 
 Audio *audio;
 void check_rx_commands(void);
-    /**
-     * Create a QR Code
-     */
+/**
+ * Create a QR Code
+ */
 void lv_example_qrcode_1(void)
 {
     lv_color_t bg_color = lv_palette_lighten(LV_PALETTE_LIGHT_BLUE, 5);
@@ -22,13 +22,13 @@ void lv_example_qrcode_1(void)
     // lv_qrcode_set_size(qr, 150);
     // lv_qrcode_set_dark_color(qr, fg_color);
     // lv_qrcode_set_light_color(qr, bg_color);
-    lv_obj_t * qr = lv_qrcode_create(ui_Screen1,150,fg_color,bg_color);
+    lv_obj_t *qr = lv_qrcode_create(ui_Screen1, 150, fg_color, bg_color);
     // lv_qrcode_set_size(qr, 150);
     // lv_qrcode_set_dark_color(qr, fg_color);
     // lv_qrcode_set_light_color(qr, bg_color);
 
     /*Set data*/
-    const char * data = "https://lvgl.io";
+    const char *data = "https://lvgl.io";
     lv_qrcode_update(qr, data, strlen(data));
     lv_obj_center(qr);
 
@@ -36,9 +36,6 @@ void lv_example_qrcode_1(void)
     lv_obj_set_style_border_color(qr, bg_color, 0);
     lv_obj_set_style_border_width(qr, 5, 0);
 }
-
-
-
 
 void setup()
 {
@@ -54,16 +51,14 @@ void setup()
     ui_init();
     lv_example_qrcode_1();
 
-Serial2.begin(115200,SERIAL_8N1,GPIO_NUM_22,GPIO_NUM_27);
-
-
+    Serial2.begin(115200, SERIAL_8N1, GPIO_NUM_22, GPIO_NUM_27);
 }
 
 ulong next_millis;
 struct Dis
 {
-    int Actual=0;
-    bool Change=false;
+    int Actual = 0;
+    bool Change = false;
 } Display;
 
 struct Compra
@@ -81,7 +76,7 @@ void Led(void)
     if (now > next_millis)
     {
         next_millis = now + 500;
-               
+
 #ifdef BOARD_HAS_RGB_LED
         auto const rgb = (now / 2000) % 8;
         smartdisplay_led_set_rgb(rgb & 0x01, rgb & 0x02, rgb & 0x04);
@@ -95,9 +90,9 @@ void loop()
     if (Display.Change == true)
     {
 
-        // 
+        //
         // lv_label_set_text_fmt(ui_Precio, "$ %d", Sec++);
-        
+
         switch (Display.Actual)
         {
         case 0:
@@ -125,11 +120,9 @@ void loop()
         }
         Display.Change = false;
         Serial.println("Cambio a Display: " + String(Display.Actual));
-        }
-lv_timer_handler();
+    }
+    lv_timer_handler();
 }
-
-
 
 /***************************Comandos*********************/
 /*
@@ -238,6 +231,6 @@ void tx_commands()
     STATUS
     VERSION_DISPLAY
     SERIAL_NUMBER
-    
+
     */
 }
